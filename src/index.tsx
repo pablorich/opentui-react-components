@@ -1,15 +1,9 @@
 import { createCliRenderer, TextAttributes } from "@opentui/core";
-import { createRoot } from "@opentui/react";
+import { createRoot, useKeyboard, useRenderer } from "@opentui/react";
+import { OpenClone } from "./pages/openclone";
 
 function App() {
-  return (
-    <box alignItems="center" justifyContent="center" flexGrow={1}>
-      <box justifyContent="center" alignItems="flex-end">
-        <ascii-font font="tiny" text="OpenTUI" />
-        <text attributes={TextAttributes.DIM}>What will you build?</text>
-      </box>
-    </box>
-  );
+  return <OpenClone />;
 }
 
 const renderer = await createCliRenderer();
