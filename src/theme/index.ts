@@ -2,6 +2,7 @@ import type {
   ColorMode,
   ResolvedTheme,
   ThemeColors,
+  ThemeColorValue,
   ThemeConfig,
 } from "./types";
 
@@ -240,84 +241,21 @@ import type {
 
 export function resolveTheme(
   themeConfig: ThemeConfig,
-  mode: ColorMode,
+  mode: ColorMode
 ): ResolvedTheme {
   const { defs, theme: colors } = themeConfig;
 
+  const mappedColors: Array<[keyof ThemeColors, string]> = (
+    Object.entries(colors) as Array<[keyof ThemeColors, ThemeColorValue]>
+  ).map(([key, value]) => [key, resolveColor(value, mode, defs)]);
+
+  const resolvedColors = Object.fromEntries(
+    mappedColors
+  ) as ResolvedTheme["colors"];
+
   return {
     defs,
-    colors: {
-      primary: resolveColor(colors.primary, mode, defs),
-      secondary: resolveColor(colors.secondary, mode, defs),
-      accent: resolveColor(colors.accent, mode, defs),
-      error: resolveColor(colors.error, mode, defs),
-      warning: resolveColor(colors.warning, mode, defs),
-      success: resolveColor(colors.success, mode, defs),
-      info: resolveColor(colors.info, mode, defs),
-      text: resolveColor(colors.text, mode, defs),
-      textMuted: resolveColor(colors.textMuted, mode, defs),
-      background: resolveColor(colors.background, mode, defs),
-      backgroundPanel: resolveColor(colors.backgroundPanel, mode, defs),
-      backgroundElement: resolveColor(colors.backgroundElement, mode, defs),
-      border: resolveColor(colors.border, mode, defs),
-      borderActive: resolveColor(colors.borderActive, mode, defs),
-      borderSubtle: resolveColor(colors.borderSubtle, mode, defs),
-      diffAdded: resolveColor(colors.diffAdded, mode, defs),
-      diffRemoved: resolveColor(colors.diffRemoved, mode, defs),
-      diffContext: resolveColor(colors.diffContext, mode, defs),
-      diffHunkHeader: resolveColor(colors.diffHunkHeader, mode, defs),
-      diffHighlightAdded: resolveColor(colors.diffHighlightAdded, mode, defs),
-      diffHighlightRemoved: resolveColor(
-        colors.diffHighlightRemoved,
-        mode,
-        defs,
-      ),
-      diffAddedBg: resolveColor(colors.diffAddedBg, mode, defs),
-      diffRemovedBg: resolveColor(colors.diffRemovedBg, mode, defs),
-      diffContextBg: resolveColor(colors.diffContextBg, mode, defs),
-      diffLineNumber: resolveColor(colors.diffLineNumber, mode, defs),
-      diffAddedLineNumberBg: resolveColor(
-        colors.diffAddedLineNumberBg,
-        mode,
-        defs,
-      ),
-      diffRemovedLineNumberBg: resolveColor(
-        colors.diffRemovedLineNumberBg,
-        mode,
-        defs,
-      ),
-      markdownText: resolveColor(colors.markdownText, mode, defs),
-      markdownHeading: resolveColor(colors.markdownHeading, mode, defs),
-      markdownLink: resolveColor(colors.markdownLink, mode, defs),
-      markdownLinkText: resolveColor(colors.markdownLinkText, mode, defs),
-      markdownCode: resolveColor(colors.markdownCode, mode, defs),
-      markdownBlockQuote: resolveColor(colors.markdownBlockQuote, mode, defs),
-      markdownEmph: resolveColor(colors.markdownEmph, mode, defs),
-      markdownStrong: resolveColor(colors.markdownStrong, mode, defs),
-      markdownHorizontalRule: resolveColor(
-        colors.markdownHorizontalRule,
-        mode,
-        defs,
-      ),
-      markdownListItem: resolveColor(colors.markdownListItem, mode, defs),
-      markdownListEnumeration: resolveColor(
-        colors.markdownListEnumeration,
-        mode,
-        defs,
-      ),
-      markdownImage: resolveColor(colors.markdownImage, mode, defs),
-      markdownImageText: resolveColor(colors.markdownImageText, mode, defs),
-      markdownCodeBlock: resolveColor(colors.markdownCodeBlock, mode, defs),
-      syntaxComment: resolveColor(colors.syntaxComment, mode, defs),
-      syntaxKeyword: resolveColor(colors.syntaxKeyword, mode, defs),
-      syntaxFunction: resolveColor(colors.syntaxFunction, mode, defs),
-      syntaxVariable: resolveColor(colors.syntaxVariable, mode, defs),
-      syntaxString: resolveColor(colors.syntaxString, mode, defs),
-      syntaxNumber: resolveColor(colors.syntaxNumber, mode, defs),
-      syntaxType: resolveColor(colors.syntaxType, mode, defs),
-      syntaxOperator: resolveColor(colors.syntaxOperator, mode, defs),
-      syntaxPunctuation: resolveColor(colors.syntaxPunctuation, mode, defs),
-    },
+    colors: resolvedColors,
     mode,
   };
 }
@@ -325,7 +263,7 @@ export function resolveTheme(
 function resolveColor(
   colors: { dark: string; light: string } | string,
   mode: ColorMode,
-  defs: Record<string, string>,
+  defs: Record<string, string>
 ): string {
   let color: string;
 
@@ -344,7 +282,7 @@ function resolveColor(
 
 export function getColor(
   theme: ResolvedTheme,
-  colorKey: keyof ResolvedTheme["colors"],
+  colorKey: keyof ResolvedTheme["colors"]
 ): string {
   const color = theme.colors[colorKey];
   if (typeof color === "string") {
