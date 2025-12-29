@@ -241,7 +241,7 @@ import type {
 
 export function resolveTheme(
   themeConfig: ThemeConfig,
-  mode: ColorMode
+  mode: ColorMode,
 ): ResolvedTheme {
   const { defs, theme: colors } = themeConfig;
 
@@ -250,7 +250,7 @@ export function resolveTheme(
   ).map(([key, value]) => [key, resolveColor(value, mode, defs)]);
 
   const resolvedColors = Object.fromEntries(
-    mappedColors
+    mappedColors,
   ) as ResolvedTheme["colors"];
 
   return {
@@ -263,7 +263,7 @@ export function resolveTheme(
 function resolveColor(
   colors: { dark: string; light: string } | string,
   mode: ColorMode,
-  defs: Record<string, string>
+  defs: Record<string, string>,
 ): string {
   let color: string;
 
@@ -282,7 +282,7 @@ function resolveColor(
 
 export function getColor(
   theme: ResolvedTheme,
-  colorKey: keyof ResolvedTheme["colors"]
+  colorKey: keyof ResolvedTheme["colors"],
 ): string {
   const color = theme.colors[colorKey];
   if (typeof color === "string") {
