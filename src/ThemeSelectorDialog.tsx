@@ -1,19 +1,18 @@
-import { RGBA } from "@opentui/core";
 import { useKeyboard } from "@opentui/react";
 import { useEffect, useRef, useState } from "react";
-import { FlexCol, Text } from "./components";
+import { Dialog, FlexCol, Text } from "./components";
 import { type ThemeName, themeNames } from "./theme";
 import { useTheme } from "./theme/provider";
 
-export interface ThemeSelectorModalProps {
+export interface ThemeSelectorDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function ThemeSelectorModal({
+export function ThemeSelectorDialog({
   isOpen,
   onClose,
-}: ThemeSelectorModalProps) {
+}: ThemeSelectorDialogProps) {
   const { theme, themeName, setTheme } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(
     themeNames.indexOf(themeName),
@@ -65,18 +64,7 @@ export function ThemeSelectorModal({
   if (!isOpen || !theme) return null;
 
   return (
-    <box
-      style={{
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "absolute",
-        backgroundColor: RGBA.fromInts(0, 0, 0, 150),
-      }}
-    >
+    <Dialog>
       <FlexCol padding={1} variant="panel" style={{ minWidth: 20 }}>
         <Text color="primary">Select Theme</Text>
         {themeNames.map((name, index) => {
@@ -103,6 +91,6 @@ export function ThemeSelectorModal({
         })}
         <Text color="textMuted">Esc to close</Text>
       </FlexCol>
-    </box>
+    </Dialog>
   );
 }

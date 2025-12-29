@@ -1,5 +1,10 @@
 import type { BoxProps } from "@opentui/react";
+import { createContext } from "react";
 import { useTheme } from "../../theme/provider";
+
+type FlexDirection = "row" | "column" | null;
+
+const FlexDirectionContext = createContext<FlexDirection>(null);
 
 export interface ContainerProps {
   variant?: "default" | "panel" | "transparent";
@@ -51,11 +56,13 @@ export function FlexRow({ variant, padding, children, style }: ContainerProps) {
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 
   return (
-    <box
-      style={{ backgroundColor: bg, padding, flexDirection: "row", ...style }}
-    >
-      {children}
-    </box>
+    <FlexDirectionContext.Provider value="row">
+      <box
+        style={{ backgroundColor: bg, padding, flexDirection: "row", ...style }}
+      >
+        {children}
+      </box>
+    </FlexDirectionContext.Provider>
   );
 }
 
@@ -72,15 +79,19 @@ export function FlexCol({ variant, padding, children, style }: ContainerProps) {
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 
   return (
-    <box
-      style={{
-        backgroundColor: bg,
-        padding,
-        flexDirection: "column",
-        ...style,
-      }}
-    >
-      {children}
-    </box>
+    <FlexDirectionContext.Provider value="column">
+      <box
+        style={{
+          backgroundColor: bg,
+          padding,
+          flexDirection: "column",
+          ...style,
+        }}
+      >
+        {children}
+      </box>
+    </FlexDirectionContext.Provider>
   );
 }
+
+export { FlexDirectionContext };

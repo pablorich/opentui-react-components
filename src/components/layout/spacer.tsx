@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useTheme } from "../../theme/provider";
+import { FlexDirectionContext } from "./container";
 
 export interface HalfSpacerProps {
   variant?:
@@ -44,5 +46,8 @@ export interface SpacerProps {
 }
 
 export function Spacer({ size = 1 }: SpacerProps) {
-  return <box height={size} />;
+  const flexDirection = useContext(FlexDirectionContext);
+  const isRow = flexDirection === "row";
+
+  return <box {...(isRow ? { width: size } : { height: size })} />;
 }

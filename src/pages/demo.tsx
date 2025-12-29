@@ -9,7 +9,7 @@ import {
   Text,
   useTheme,
 } from "./../components";
-import { ThemeSelectorModal } from "./../ThemeSelectorModal";
+import { ThemeSelectorDialog } from "./../ThemeSelectorDialog";
 
 export function Demo() {
   const { setMode, mode } = useTheme();
@@ -30,7 +30,7 @@ export function Demo() {
       <FlexCol>
         <FlexRow>
           <Text color="accent">◀</Text>
-          <Spacer size={1} />
+          <Spacer />
           <Text>Theme Demo </Text>
           <Spacer size={1} />
           <Text color="primary">Press Ctrl+T to toggle </Text>
@@ -50,7 +50,7 @@ export function Demo() {
                 <Spacer size={1} />
                 <FlexRow>
                   <Text>Primary: </Text>
-                  <Text color="primary">lorem ipsum●</Text>
+                  <Text color="primary">lorem ipsum ● </Text>
                 </FlexRow>
                 <Spacer size={1} />
                 <FlexRow>
@@ -70,7 +70,7 @@ export function Demo() {
                 <Spacer size={1} />
                 <FlexRow>
                   <Text>Warning: </Text>
-                  <Text color="warning">Warning!⚠</Text>
+                  <Text color="warning">Warning!</Text>
                 </FlexRow>
               </FlexCol>
             </Container>
@@ -119,7 +119,7 @@ export function Demo() {
               </FlexCol>
             </Container>
           </FlexCol>
-          <Container variant="panel" padding={2} style={{ minWidth: 50 }}>
+          <Container variant="panel" padding={2} style={{ flexGrow: 1 }}>
             <Text color="warning">press ctr+p</Text>
             <Spacer />
             {showPanel && (
@@ -148,7 +148,7 @@ export function Demo() {
       </FlexCol>
 
       {showThemeModal && (
-        <ThemeSelectorModal
+        <ThemeSelectorDialog
           isOpen={showThemeModal}
           onClose={() => setShowThemeModal(false)}
         />
