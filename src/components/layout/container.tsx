@@ -23,8 +23,8 @@ export function Container({
     variant === "default"
       ? "background"
       : variant === "panel"
-      ? "backgroundPanel"
-      : undefined;
+        ? "backgroundPanel"
+        : undefined;
 
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 
@@ -45,8 +45,8 @@ export function FlexRow({ variant, padding, children, style }: ContainerProps) {
     variant === "default"
       ? "background"
       : variant === "panel"
-      ? "backgroundPanel"
-      : undefined;
+        ? "backgroundPanel"
+        : undefined;
 
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 
@@ -66,8 +66,8 @@ export function FlexCol({ variant, padding, children, style }: ContainerProps) {
     variant === "default"
       ? "background"
       : variant === "panel"
-      ? "backgroundPanel"
-      : undefined;
+        ? "backgroundPanel"
+        : undefined;
 
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 

@@ -1,19 +1,19 @@
-import { useState } from "react";
 import { useKeyboard } from "@opentui/react";
+import { useState } from "react";
 import {
   Container,
-  FlexRow,
   FlexCol,
+  FlexRow,
   HalfSpacer,
   Spacer,
-  useTheme,
   Text,
+  useTheme,
 } from "./../components";
 import { ThemeSelectorModal } from "./../ThemeSelectorModal";
 
 export function Demo() {
-  const { theme, setMode, mode } = useTheme();
-  const [showPanel, setShowPanel] = useState(false);
+  const { setMode, mode } = useTheme();
+  const [showPanel, _setShowPanel] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
 
   useKeyboard((key) => {

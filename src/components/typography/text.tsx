@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useTheme } from "../../theme/provider";
 
 export interface TextProps {
@@ -11,7 +12,7 @@ export interface TextProps {
     | "info"
     | "text"
     | "textMuted";
-  children?: any;
+  children?: ReactNode;
 }
 
 export function Text({ color = "text", children }: TextProps) {

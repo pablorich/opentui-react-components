@@ -1,8 +1,8 @@
 import type {
+  ColorMode,
+  ResolvedTheme,
   ThemeColors,
   ThemeConfig,
-  ResolvedTheme,
-  ColorMode,
 } from "./types";
 
 // export const githubTheme: ThemeConfig = {
@@ -240,7 +240,7 @@ import type {
 
 export function resolveTheme(
   themeConfig: ThemeConfig,
-  mode: ColorMode
+  mode: ColorMode,
 ): ResolvedTheme {
   const { defs, theme: colors } = themeConfig;
 
@@ -270,7 +270,7 @@ export function resolveTheme(
       diffHighlightRemoved: resolveColor(
         colors.diffHighlightRemoved,
         mode,
-        defs
+        defs,
       ),
       diffAddedBg: resolveColor(colors.diffAddedBg, mode, defs),
       diffRemovedBg: resolveColor(colors.diffRemovedBg, mode, defs),
@@ -279,12 +279,12 @@ export function resolveTheme(
       diffAddedLineNumberBg: resolveColor(
         colors.diffAddedLineNumberBg,
         mode,
-        defs
+        defs,
       ),
       diffRemovedLineNumberBg: resolveColor(
         colors.diffRemovedLineNumberBg,
         mode,
-        defs
+        defs,
       ),
       markdownText: resolveColor(colors.markdownText, mode, defs),
       markdownHeading: resolveColor(colors.markdownHeading, mode, defs),
@@ -297,13 +297,13 @@ export function resolveTheme(
       markdownHorizontalRule: resolveColor(
         colors.markdownHorizontalRule,
         mode,
-        defs
+        defs,
       ),
       markdownListItem: resolveColor(colors.markdownListItem, mode, defs),
       markdownListEnumeration: resolveColor(
         colors.markdownListEnumeration,
         mode,
-        defs
+        defs,
       ),
       markdownImage: resolveColor(colors.markdownImage, mode, defs),
       markdownImageText: resolveColor(colors.markdownImageText, mode, defs),
@@ -325,7 +325,7 @@ export function resolveTheme(
 function resolveColor(
   colors: { dark: string; light: string } | string,
   mode: ColorMode,
-  defs: Record<string, string>
+  defs: Record<string, string>,
 ): string {
   let color: string;
 
@@ -344,7 +344,7 @@ function resolveColor(
 
 export function getColor(
   theme: ResolvedTheme,
-  colorKey: keyof ResolvedTheme["colors"]
+  colorKey: keyof ResolvedTheme["colors"],
 ): string {
   const color = theme.colors[colorKey];
   if (typeof color === "string") {

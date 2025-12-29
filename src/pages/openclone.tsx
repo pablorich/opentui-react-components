@@ -1,10 +1,6 @@
-import type {
-  SelectOption,
-  TabSelectOption,
-  TextareaRenderable,
-} from "@opentui/core";
+import type { TextareaRenderable } from "@opentui/core";
 import { useKeyboard } from "@opentui/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { EmptyBorder } from "../component/border";
 
 const theme = {
@@ -59,8 +55,8 @@ export function OpenClone() {
           padding: 1,
         }}
       >
-        {messages.map((message, index) => (
-          <box key={index} marginBottom={1}>
+        {messages.map((message, _index) => (
+          <box key={message} marginBottom={1}>
             <text>{message}</text>
           </box>
         ))}

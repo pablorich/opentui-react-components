@@ -1,25 +1,39 @@
-import { createContext, useState, useEffect, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { resolveTheme, type ThemeName } from "./index";
+import ayuTheme from "./themes/ayu.json";
+import catppuccinTheme from "./themes/catppuccin.json";
+import draculaTheme from "./themes/dracula.json";
+import githubTheme from "./themes/github.json";
+import monokaiTheme from "./themes/monokai.json";
+import nordTheme from "./themes/nord.json";
 import type {
-  ThemeConfig,
   ColorMode,
   ResolvedTheme as ResolvedThemeType,
+  ThemeConfig,
 } from "./types";
 
 interface ThemeContextValue {
   theme: ResolvedThemeType;
-  themeName: string | null;
+  themeName: ThemeName;
   mode: ColorMode;
   setMode: (mode: ColorMode) => void;
-  setTheme: (themeName: ThemeName) => Promise<void>;
+  setTheme: (themeName: ThemeName) => void;
 }
 
 const themeContext = createContext<ThemeContextValue | null>(null);
 
-async function loadTheme(name: ThemeName): Promise<ThemeConfig> {
-  const module = await import(`./themes/${name}.json`);
-  return module.default;
+const themeMap: Record<ThemeName, ThemeConfig> = {
+  github: githubTheme,
+  ayu: ayuTheme,
+  catppuccin: catppuccinTheme,
+  dracula: draculaTheme,
+  monokai: monokaiTheme,
+  nord: nordTheme,
+};
+
+function loadTheme(name: ThemeName): ThemeConfig {
+  return themeMap[name];
 }
 
 export interface ThemeProviderProps {
@@ -36,30 +50,21 @@ export function ThemeProvider({
   const [mode, setMode] = useState<ColorMode>(defaultMode);
   const [currentThemeName, setCurrentThemeName] =
     useState<ThemeName>(themeName);
-  const [currentThemeConfig, setCurrentThemeConfig] =
-    useState<ThemeConfig | null>(null);
 
-  useEffect(() => {
-    loadTheme(currentThemeName).then((res) => {
-      setCurrentThemeConfig(res);
-    });
+  const currentThemeConfig = useMemo(() => {
+    return loadTheme(currentThemeName);
   }, [currentThemeName]);
 
   const resolvedTheme = useMemo(() => {
-    if (!currentThemeConfig) return null;
     return resolveTheme(currentThemeConfig, mode);
   }, [currentThemeConfig, mode]);
 
-  const setTheme = async (name: ThemeName) => {
+  const setTheme = (name: ThemeName) => {
     setCurrentThemeName(name);
   };
 
   const value: ThemeContextValue = {
-    theme: resolvedTheme || {
-      defs: {},
-      colors: {} as any,
-      mode,
-    },
+    theme: resolvedTheme,
     themeName: currentThemeName,
     mode,
     setMode,

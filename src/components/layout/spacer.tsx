@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useTheme } from "../../theme/provider";
 
 export interface HalfSpacerProps {

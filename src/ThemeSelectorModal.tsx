@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-import { useKeyboard } from "@opentui/react";
-import { FlexCol, Text } from "./components";
-import { useTheme } from "./theme/provider";
-import { type ThemeName, themeNames } from "./theme";
 import { RGBA } from "@opentui/core";
+import { useKeyboard } from "@opentui/react";
+import { useEffect, useRef, useState } from "react";
+import { FlexCol, Text } from "./components";
+import { type ThemeName, themeNames } from "./theme";
+import { useTheme } from "./theme/provider";
 
 export interface ThemeSelectorModalProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export function ThemeSelectorModal({
 }: ThemeSelectorModalProps) {
   const { theme, themeName, setTheme } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(
-    themeNames.findIndex((th) => th === themeName)
+    themeNames.indexOf(themeName),
   );
   const originalThemeNameRef = useRef<string | null>(null);
 

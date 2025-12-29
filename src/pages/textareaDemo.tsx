@@ -1,5 +1,3 @@
-import { RGBA, type TextareaRenderable } from "@opentui/core";
-import { useRef } from "react";
 const theme = {
   background: "#282A36",
   backgroundElement: "#44475A",
