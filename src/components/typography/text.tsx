@@ -1,7 +1,8 @@
+import type { TextProps } from "@opentui/react";
 import type { ReactNode } from "react";
 import { useTheme } from "../../theme/provider";
 
-export interface TextProps {
+export interface ExtendedTextProps {
   color?:
     | "primary"
     | "secondary"
@@ -13,13 +14,14 @@ export interface TextProps {
     | "text"
     | "textMuted";
   children?: ReactNode;
+  style?: TextProps;
 }
 
-export function Text({ color = "text", children }: TextProps) {
+export function Text({ color = "text", children, style }: ExtendedTextProps) {
   const { theme } = useTheme();
 
   const colorKey = color as keyof typeof theme.colors;
   const fg = theme.colors[colorKey];
 
-  return <text style={{ fg }}>{children}</text>;
+  return <text style={{ ...style, fg }}>{children}</text>;
 }

@@ -1,6 +1,9 @@
 import { useKeyboard } from "@opentui/react";
 import { useState } from "react";
 import {
+  CharDimmedWaveLoader,
+  CircularLoader,
+  ColorDimmedWaveLoader,
   Container,
   FlexCol,
   FlexRow,
@@ -210,6 +213,11 @@ export function Demo() {
                   <Spacer size={1} />
                   <Text>Custom 5s toast</Text>
                 </FlexRow>
+              </Container>
+              <Container>
+                <CircularLoader />
+                <ColorDimmedWaveLoader />
+                <CharDimmedWaveLoader />
               </Container>
             </FlexCol>
           </FlexRow>
