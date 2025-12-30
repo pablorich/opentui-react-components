@@ -53,6 +53,8 @@ export function ToastProvider({
       duration = defaultDuration,
       position = "bottom-right",
       title,
+      contentPosition,
+      width,
     } = options;
 
     const id = crypto.randomUUID();
@@ -64,6 +66,8 @@ export function ToastProvider({
       position,
       duration,
       createdAt: Date.now(),
+      contentPosition,
+      width,
     };
 
     setToasts((prev) => {

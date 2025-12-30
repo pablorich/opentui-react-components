@@ -28,6 +28,11 @@ export function ToastContainer({ position }: ToastContainerProps) {
     return null;
   }
 
+  const alignment =
+    position === "bottom-right" || position === "top-right"
+      ? "flex-end"
+      : "flex-start";
+
   return (
     <box
       style={{
@@ -37,7 +42,7 @@ export function ToastContainer({ position }: ToastContainerProps) {
         maxWidth: 60,
       }}
     >
-      <FlexCol>
+      <FlexCol style={{ alignItems: alignment }}>
         {positionToasts.map((toast, index) => (
           <>
             <Toast
@@ -45,6 +50,8 @@ export function ToastContainer({ position }: ToastContainerProps) {
               variant={toast.variant}
               title={toast.title}
               message={toast.message}
+              position={toast.contentPosition}
+              width={toast.width}
             />
             {index < positionToasts.length - 1 && <Spacer size={1} />}
           </>

@@ -13,7 +13,12 @@ A themable component library for OpenTUI with abstracted styling.
 ## Usage
 
 ```tsx
-import { ThemeProvider, Container, HalfSpacer, githubTheme } from "./components";
+import {
+  ThemeProvider,
+  Container,
+  HalfSpacer,
+  githubTheme,
+} from "./components";
 
 function App() {
   const theme = resolveTheme(githubTheme, "dark");
@@ -34,6 +39,7 @@ function App() {
 ### Layout
 
 #### `Container`
+
 Wrapper component with themed background colors.
 
 ```tsx
@@ -51,6 +57,7 @@ Wrapper component with themed background colors.
 ```
 
 #### `FlexRow` / `FlexCol`
+
 Flexbox layout containers with themed backgrounds.
 
 ```tsx
@@ -68,6 +75,7 @@ Flexbox layout containers with themed backgrounds.
 ```
 
 #### `HalfSpacer`
+
 Unicode block character spacer for fractional spacing.
 
 ```tsx
@@ -77,6 +85,7 @@ Unicode block character spacer for fractional spacing.
 ```
 
 Available variants:
+
 - `light` - ░
 - `medium` - ▒
 - `heavy` - ▓
@@ -86,6 +95,7 @@ Available variants:
 - `rightHalf` - ▐
 
 #### `Spacer`
+
 Simple empty spacer box.
 
 ```tsx
@@ -104,12 +114,12 @@ function MyComponent() {
   const { theme, getColor } = useTheme();
 
   return (
-    <box style={{
-      backgroundColor: theme.defs[theme.colors.background],
-    }}>
-      <text style={{ fg: getColor("text") }}>
-        Themed text
-      </text>
+    <box
+      style={{
+        backgroundColor: theme.defs[theme.colors.background],
+      }}
+    >
+      <text style={{ fg: getColor("text") }}>Themed text</text>
     </box>
   );
 }
@@ -188,3 +198,144 @@ const myTheme: ThemeConfig = {
 3. **Document color usage** - Specify which theme colors each component uses
 4. **Export types** - Make props type-safe
 5. **Consistent API** - Follow similar prop patterns across components
+
+## Loading Components
+
+### `CircularLoader`
+
+A spinning braille-pattern loader using the classic spinner sequence.
+
+```tsx
+<CircularLoader speed={100} />
+```
+
+**Props:**
+
+- `speed` (optional): Animation speed in milliseconds between frames (default: 100)
+
+**Colors used:** `primary`
+
+**Example:**
+
+```tsx
+<Container variant="panel" padding={1}>
+  <FlexCol>
+    <Text color="primary">Loading...</Text>
+    <Spacer size={1} />
+    <CircularLoader />
+  </FlexCol>
+</Container>
+```
+
+### `ColorDimmedWaveLoader`
+
+A wave animation with an 8-character sliding trail. As it moves, the trail shows a gradient of dimming: brightest big square (■) at the leading edge, followed by progressively dimmed squares. After the first 4 positions (big squares), the trail continues with small squares (▪) that maintain the same dimming pattern but are always at the lowest brightness level.
+
+```tsx
+<ColorDimmedWaveLoader width={20} speed={150} />
+```
+
+**Trail pattern:**
+
+- Position 0 (leading edge): Big square (■) at 100% brightness (head)
+- Position 1: Big square (■) at 75% brightness
+- Position 2: Big square (■) at 50% brightness
+- Position 3: Big square (■) at 25% brightness
+- Position 4-7: Small squares (▪) at 25% brightness
+
+**Animation phases:**
+
+1. **Enter**: All dimmed small squares at 25% brightness
+2. **Move**: Slides left-to-right, then right-to-left
+3. **Exit**: Disappears from one edge
+4. **Enter from opposite side**: Reappears and continues in opposite direction
+
+**Props:**
+
+- `width` (optional): Total animation width in characters (minimum 8, default: 20)
+- `speed` (optional): Animation speed in milliseconds per position move (default: 150)
+
+**Colors used:**
+
+- Head and trail: `primary` blended with `background` at varying opacities (100%, 75%, 50%, 25%)
+- Empty space: `primary` at 25% opacity
+
+**Example:**
+
+```tsx
+<Container variant="panel" padding={1}>
+  <FlexCol>
+    <Text color="primary">Processing...</Text>
+    <Spacer size={1} />
+    <ColorDimmedWaveLoader width={25} />
+  </FlexCol>
+</Container>
+```
+
+**Trail pattern:**
+
+- 4 big squares (■) with brightness: 100%, 75%, 50%, 25%
+- 4 small squares (▪) with brightness: 100%, 75%, 50%, 25%
+
+**Animation phases:**
+
+1. **Enter**: All small squares at 10% brightness
+2. **Move**: Trail appears and moves across
+3. **Exit**: Trail disappears when reaching the edge
+4. **Reverse**: Trail reappears from opposite side
+
+**Props:**
+
+- `width` (optional): Total animation width in characters (minimum 8, default: 20)
+- `speed` (optional): Animation speed in milliseconds per position move (default: 150)
+
+**Colors used:**
+
+- Trail: `primary` blended with `background` at varying opacities
+- Empty space: `primary` at 10% opacity
+
+**Example:**
+
+```tsx
+<Container variant="panel" padding={1}>
+  <FlexCol>
+    <Text color="primary">Processing...</Text>
+    <Spacer size={1} />
+    <ColorDimmedWaveLoader width={25} />
+  </FlexCol>
+</Container>
+```
+
+### `CharDimmedWaveLoader`
+
+A wave animation using block shading characters (█▓▒░) with the same color, dimming through character density.
+
+```tsx
+<CharDimmedWaveLoader width={20} speed={150} trailLength={3} color="primary" />
+```
+
+**Props:**
+
+- `width` (optional): Total animation width in characters (minimum 7, default: 20)
+- `speed` (optional): Animation speed in milliseconds per position move (default: 150)
+- `trailLength` (optional): Number of trailing squares (default: 3)
+- `color` (optional): Theme color for the blocks (default: "primary", options: "primary" | "accent" | "secondary")
+
+**Colors used:**
+
+- All blocks: Configured color prop (default: `primary`)
+- Empty space: `textMuted`
+
+**Example:**
+
+```tsx
+<Container variant="panel" padding={1}>
+  <FlexCol>
+    <Text color="accent">Syncing...</Text>
+    <Spacer size={1} />
+    <CharDimmedWaveLoader width={25} color="accent" />
+  </FlexCol>
+</Container>
+```
+
+**Note:** All wave loaders use a ping-pong animation pattern (left → right → left).

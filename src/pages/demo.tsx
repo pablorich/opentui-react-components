@@ -32,22 +32,39 @@ export function Demo() {
       setShowThemeModal(!showThemeModal);
     }
     if (key.name === "1") {
-      success("Success message!");
+      success("Success message!", {
+        position: "bottom-right",
+        contentPosition: "center",
+        width: 10,
+      });
     }
     if (key.name === "2") {
-      error("Error message!");
+      error("Error message!", {
+        position: "bottom-right",
+        contentPosition: "center",
+        width: 70,
+      });
     }
     if (key.name === "3") {
-      warning("Warning message!");
+      warning("Warning message!", {
+        position: "bottom-right",
+        contentPosition: "center",
+      });
     }
     if (key.name === "4") {
-      info("Info message!");
+      info("Info message!", {
+        position: "bottom-right",
+        contentPosition: "center",
+      });
     }
     if (key.name === "q") {
       info("Top-left toast", { position: "top-left" });
     }
     if (key.name === "w") {
-      info("Top-right toast", { position: "top-right" });
+      info("Top-right toast", {
+        position: "top-right",
+        contentPosition: "right",
+      });
     }
     if (key.name === "e") {
       info("Bottom-left toast", { position: "bottom-left" });
