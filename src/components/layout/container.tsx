@@ -12,6 +12,7 @@ export interface ContainerProps {
   children?: React.ReactNode;
   style?: BoxProps;
   scrollable?: boolean;
+  props?: BoxProps;
 }
 
 export function Container({
@@ -20,6 +21,7 @@ export function Container({
   children,
   style,
   scrollable = false,
+  props,
 }: ContainerProps) {
   const { theme } = useTheme();
   if (theme === null) return;
@@ -34,7 +36,9 @@ export function Container({
   const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
 
   const content = (
-    <box style={{ backgroundColor: bg, padding, ...style }}>{children}</box>
+    <box style={{ backgroundColor: bg, padding, ...style }} {...props}>
+      {children}
+    </box>
   );
 
   if (scrollable) {

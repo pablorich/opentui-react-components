@@ -1,4 +1,5 @@
 import { TextAttributes } from "@opentui/core";
+import { EmptyBorder } from "../../component/border";
 import { Container, FlexCol, Spacer } from "../../components";
 import { useTheme } from "../../theme/provider";
 
@@ -9,6 +10,10 @@ export interface ToastProps {
   title?: string;
   message: string;
 }
+const customBorderChars = {
+  ...EmptyBorder,
+  vertical: "┃",
+};
 
 export function Toast({ variant, title, message }: ToastProps) {
   const { theme } = useTheme();
@@ -21,12 +26,13 @@ export function Toast({ variant, title, message }: ToastProps) {
       variant="panel"
       padding={1}
       style={{
-        borderColor: fg,
         borderStyle: "single",
-        border: true,
         minWidth: 40,
         maxWidth: 60,
+        border: ["left", "right"],
+        borderColor: fg,
       }}
+      props={{ customBorderChars }}
     >
       <FlexCol>
         {title && (

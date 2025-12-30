@@ -15,7 +15,6 @@ const theme = {
 const customBorderChars = {
   ...EmptyBorder,
   vertical: "┃",
-  bottomLeft: "p",
 };
 
 export function OpenClone() {
