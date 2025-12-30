@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import {
   createContext,
+  use,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -151,7 +151,7 @@ export function ToastProvider({
 }
 
 export function useToast(): ToastContextValue {
-  const context = useContext(toastContext);
+  const context = use(toastContext);
   if (!context) {
     throw new Error("useToast must be used within a ToastProvider");
   }

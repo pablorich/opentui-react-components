@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, use, useMemo, useState } from "react";
 import { resolveTheme, type ThemeName } from "./index";
 import ayuTheme from "./themes/ayu.json";
 import catppuccinTheme from "./themes/catppuccin.json";
@@ -77,7 +77,7 @@ export function ThemeProvider({
 }
 
 export function useTheme(): ThemeContextValue {
-  const context = useContext(themeContext);
+  const context = use(themeContext);
   if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
