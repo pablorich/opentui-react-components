@@ -41,7 +41,7 @@ export function Toast({ variant, title, message }: ToastProps) {
             <Spacer size={1} />
           </>
         )}
-        <text>{message}</text>
+        <text fg={theme.colors.text}>{message}</text>
       </FlexCol>
     </Container>
   );
