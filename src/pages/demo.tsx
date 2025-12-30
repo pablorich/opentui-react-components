@@ -5,15 +5,18 @@ import {
   FlexCol,
   FlexRow,
   HalfSpacer,
+  LayeredRasterDonut,
+  ParametricRaycastDonut,
   Spacer,
   Text,
   useTheme,
 } from "./../components";
+import { SpinningPyramid } from "../components/graphics/spinningPyramid";
 import { ThemeSelectorDialog } from "./../ThemeSelectorDialog";
 
 export function Demo() {
   const { setMode, mode } = useTheme();
-  const [showPanel, _setShowPanel] = useState(false);
+  const [_showPanel, _setShowPanel] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
 
   useKeyboard((key) => {
@@ -119,23 +122,28 @@ export function Demo() {
               </FlexCol>
             </Container>
           </FlexCol>
-          <Container variant="panel" padding={2} style={{ flexGrow: 1 }}>
-            <Text color="warning">press ctr+p</Text>
-            <Spacer />
-            {showPanel && (
-              <FlexCol>
-                <Text color="primary">Panel Component</Text>
+          <FlexCol>
+            <FlexRow style={{ gap: 1, flexWrap: "wrap" }}>
+              <Container variant="panel" padding={1}>
+                <Text color="primary">Parametric Raycasting</Text>
                 <Spacer size={1} />
-                <Text color="textMuted">
-                  This is a themed panel component with
-                </Text>
+                <ParametricRaycastDonut width={60} height={30} speed={1} />
+              </Container>
+
+              <Spacer size={1} />
+
+              <Container variant="default" padding={1}>
+                <Text color="primary">Layered Rasterization</Text>
                 <Spacer size={1} />
-                <Text>{mode === "dark" ? "dark" : "light"} mode</Text>
+                <LayeredRasterDonut width={60} height={30} speed={1} />
+              </Container>
+              <Container variant="panel" padding={1}>
+                <Text color="primary"></Text>
                 <Spacer size={1} />
-                <Text color="textMuted">styling applied automatically.</Text>
-              </FlexCol>
-            )}
-          </Container>
+                <SpinningPyramid wireframe={false} />
+              </Container>
+            </FlexRow>
+          </FlexCol>
         </FlexRow>
 
         <HalfSpacer colorKey="borderSubtle" />
