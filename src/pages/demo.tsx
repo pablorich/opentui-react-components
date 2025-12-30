@@ -10,6 +10,7 @@ import {
   Spacer,
   Text,
   useTheme,
+  useToast,
 } from "./../components";
 import { SpinningPyramid } from "../components/graphics/spinningPyramid";
 import { ThemeSelectorDialog } from "./../ThemeSelectorDialog";
@@ -18,6 +19,7 @@ export function Demo() {
   const { setMode, mode } = useTheme();
   const [_showPanel, _setShowPanel] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
+  const { toast: showToast, success, error, warning, info } = useToast();
 
   useKeyboard((key) => {
     if (key.ctrl && key.name === "t") {
@@ -25,6 +27,38 @@ export function Demo() {
     }
     if (key.ctrl && key.name === "p") {
       setShowThemeModal(!showThemeModal);
+    }
+    if (key.name === "1") {
+      success("Success message!");
+    }
+    if (key.name === "2") {
+      error("Error message!");
+    }
+    if (key.name === "3") {
+      warning("Warning message!");
+    }
+    if (key.name === "4") {
+      info("Info message!");
+    }
+    if (key.name === "q") {
+      info("Top-left toast", { position: "top-left" });
+    }
+    if (key.name === "w") {
+      info("Top-right toast", { position: "top-right" });
+    }
+    if (key.name === "e") {
+      info("Bottom-left toast", { position: "bottom-left" });
+    }
+    if (key.name === "r") {
+      info("Bottom-right toast", { position: "bottom-right" });
+    }
+    if (key.name === "t") {
+      showToast("Custom toast", {
+        variant: "success",
+        title: "Custom Title",
+        duration: 5000,
+        position: "top-right",
+      });
     }
   });
 
@@ -123,26 +157,59 @@ export function Demo() {
             </Container>
           </FlexCol>
           <FlexCol>
-            <FlexRow style={{ gap: 1, flexWrap: "wrap" }}>
-              <Container variant="panel" padding={1}>
-                <Text color="primary">Parametric Raycasting</Text>
-                <Spacer size={1} />
-                <ParametricRaycastDonut width={60} height={30} speed={1} />
-              </Container>
-
+            <Container variant="panel" padding={1}>
+              <Text color="primary">Parametric Raycasting</Text>
               <Spacer size={1} />
+              <ParametricRaycastDonut width={60} height={30} speed={1} />
+            </Container>
 
-              <Container variant="default" padding={1}>
-                <Text color="primary">Layered Rasterization</Text>
+            <Spacer size={1} />
+
+            <Container variant="default" padding={1}>
+              <Text color="primary">Layered Rasterization</Text>
+              <Spacer size={1} />
+              <LayeredRasterDonut width={60} height={30} speed={1} />
+            </Container>
+            <Container variant="panel" padding={1}>
+              <Text color="primary"></Text>
+              <Spacer size={1} />
+              <SpinningPyramid wireframe={false} />
+            </Container>
+          </FlexCol>
+          <FlexCol>
+            <Container variant="panel" padding={1}>
+              <Text color="primary">Toast Demo</Text>
+              <Spacer size={1} />
+              <FlexRow>
+                <Text>1:</Text>
                 <Spacer size={1} />
-                <LayeredRasterDonut width={60} height={30} speed={1} />
-              </Container>
-              <Container variant="panel" padding={1}>
-                <Text color="primary"></Text>
+                <Text>Success</Text>
                 <Spacer size={1} />
-                <SpinningPyramid wireframe={false} />
-              </Container>
-            </FlexRow>
+                <Text>2:</Text>
+                <Spacer size={1} />
+                <Text>Error</Text>
+                <Spacer size={1} />
+                <Text>3:</Text>
+                <Spacer size={1} />
+                <Text>Warning</Text>
+                <Spacer size={1} />
+                <Text>4:</Text>
+                <Spacer size={1} />
+                <Text>Info</Text>
+              </FlexRow>
+              <Spacer size={1} />
+              <FlexRow>
+                <Text>q,w,e,r:</Text>
+                <Spacer size={1} />
+                <Text>TL,TR,BL,BR</Text>
+              </FlexRow>
+              <Spacer size={1} />
+              <FlexRow>
+                <Text>t:</Text>
+                <Spacer size={1} />
+                <Text>Custom 5s toast</Text>
+              </FlexRow>
+            </Container>
           </FlexCol>
         </FlexRow>
 

@@ -1,5 +1,6 @@
 export * from "../theme";
 export * from "../theme/provider";
+export * from "./feedback";
 export * from "./graphics/frameBuffer";
 export * from "./graphics/layeredRasterDonut";
 export * from "./graphics/parametricRaycastDonut";
