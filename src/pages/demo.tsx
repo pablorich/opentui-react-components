@@ -199,7 +199,7 @@ export function Demo() {
                 <SpinningPyramid wireframe={false} />
               </Container> */}
             </FlexCol>
-            <FlexCol>
+            <FlexCol style={{ flexBasis: 50, flexShrink: 5 }}>
               <Container variant="panel" padding={1}>
                 <Text color="primary">Toast Demo</Text>
                 <Spacer size={1} />
@@ -235,13 +235,17 @@ export function Demo() {
               </Container>
               <Spacer />
               <Container variant="panel" padding={1}>
+                <Text color="primary">Loaders Demo</Text>
+                <Spacer size={1} />
                 <CircularLoader />
                 <ColorDimmedWaveLoader />
                 <CharDimmedWaveLoader />
               </Container>
               <Spacer />
               <Container variant="panel" padding={1}>
-                <ChatInput textareaRef={textRef}>
+                <Text color="primary">Chat input</Text>
+                <Spacer size={1} />
+                <ChatInput textareaRef={textRef} placeholder="Start typing...">
                   <Text>
                     <span fg={theme.colors.accent}>Hey </span>
                     Cowboy

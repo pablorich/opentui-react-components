@@ -51,7 +51,10 @@ export function FlexRow(props: ContainerProps) {
   const { children, ...rest } = props;
   return (
     <FlexDirectionContext.Provider value="row">
-      <Container {...rest} style={{ ...rest.style, flexDirection: "row" }}>
+      <Container
+        {...rest}
+        style={{ ...rest.style, flexDirection: "row", flexWrap: "wrap" }}
+      >
         {children}
       </Container>
     </FlexDirectionContext.Provider>

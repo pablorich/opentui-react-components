@@ -1,6 +1,6 @@
 import { TextAttributes } from "@opentui/core";
-import { EmptyBorder } from "../../component/border";
 import { Container, FlexCol, Spacer } from "../../components";
+import { EmptyBorder } from "../../theme/borders";
 import { useTheme } from "../../theme/provider";
 
 export type ToastVariant = "success" | "error" | "warning" | "info";

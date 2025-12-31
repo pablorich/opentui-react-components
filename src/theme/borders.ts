@@ -1,4 +1,6 @@
-export const EmptyBorder = {
+import type { BorderCharacters } from "@opentui/core";
+
+export const EmptyBorder: BorderCharacters = {
   topLeft: "",
   bottomLeft: "",
   vertical: "",

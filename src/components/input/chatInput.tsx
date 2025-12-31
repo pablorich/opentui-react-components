@@ -1,6 +1,6 @@
 import type { TextareaRenderable } from "@opentui/core";
 import type { ReactNode } from "react";
-import { EmptyBorder } from "../../component/border";
+import { EmptyBorder } from "../../theme/borders";
 import { useTheme } from "../../theme/provider";
 
 export interface ChatInputProps {
@@ -61,8 +61,10 @@ export function ChatInput({
             <textarea
               ref={textareaRef}
               focused
+              placeholder={placeholder}
               minHeight={1}
               maxHeight={6}
+              focusedTextColor={theme.colors.text}
               focusedBackgroundColor={theme.colors.backgroundElement}
               cursorColor={theme.colors.text}
             />

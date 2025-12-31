@@ -291,6 +291,8 @@ export function getColor(
   return theme.defs[color] as string;
 }
 
+export * from "./borders";
+
 type ThemeName =
   | "github"
   | "ayu"
