@@ -1,5 +1,5 @@
 {
-  "name": "opentui-playground",
+  "name": "opentui-components",
   "module": "src/index.tsx",
   "type": "module",
   "private": true,

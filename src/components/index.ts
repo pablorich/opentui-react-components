@@ -9,6 +9,8 @@ export * from "./graphics/layeredRasterDonut";
 export * from "./graphics/parametricRaycastDonut";
 export * from "./graphics/renderer3d";
 export * from "./graphics/vec3";
+export * from "./input";
+export * from "./input/chatInput";
 export * from "./layout/container";
 export * from "./layout/dialog";
 export * from "./layout/spacer";

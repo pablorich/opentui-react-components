@@ -1,7 +1,8 @@
 import { useKeyboard } from "@opentui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   CharDimmedWaveLoader,
+  ChatInput,
   CircularLoader,
   ColorDimmedWaveLoader,
   Container,
@@ -19,10 +20,11 @@ import { SpinningPyramid } from "../components/graphics/spinningPyramid";
 import { ThemeSelectorDialog } from "./../ThemeSelectorDialog";
 
 export function Demo() {
-  const { setMode, mode } = useTheme();
+  const { setMode, mode, theme } = useTheme();
   const [_showPanel, _setShowPanel] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
   const { toast: showToast, success, error, warning, info } = useToast();
+  const textRef = useRef(null);
 
   useKeyboard((key) => {
     if (key.ctrl && key.name === "t") {
@@ -100,8 +102,8 @@ export function Demo() {
 
           <HalfSpacer colorKey="borderSubtle" />
 
-          <FlexRow style={{ gap: 5 }}>
-            <FlexCol>
+          <FlexRow style={{ gap: 2 }}>
+            <FlexCol props={{ minWidth: 30 }}>
               <Container variant="panel" padding={1}>
                 <FlexCol>
                   <Text color="primary">Semantics</Text>
@@ -177,7 +179,7 @@ export function Demo() {
                 </FlexCol>
               </Container>
             </FlexCol>
-            <FlexCol>
+            <FlexCol props={{ minWidth: 70 }}>
               <Container variant="panel" padding={1}>
                 <Text color="primary">Parametric Raycasting</Text>
                 <Spacer size={1} />
@@ -186,16 +188,16 @@ export function Demo() {
 
               <Spacer size={1} />
 
-              <Container variant="default" padding={1}>
+              <Container variant="panel" padding={1}>
                 <Text color="primary">Layered Rasterization</Text>
                 <Spacer size={1} />
                 <LayeredRasterDonut width={60} height={30} speed={1} />
               </Container>
-              <Container variant="panel" padding={1}>
+              {/* <Container variant="panel" padding={1}>
                 <Text color="primary"></Text>
                 <Spacer size={1} />
                 <SpinningPyramid wireframe={false} />
-              </Container>
+              </Container> */}
             </FlexCol>
             <FlexCol>
               <Container variant="panel" padding={1}>
@@ -231,10 +233,20 @@ export function Demo() {
                   <Text>Custom 5s toast</Text>
                 </FlexRow>
               </Container>
-              <Container>
+              <Spacer />
+              <Container variant="panel" padding={1}>
                 <CircularLoader />
                 <ColorDimmedWaveLoader />
                 <CharDimmedWaveLoader />
+              </Container>
+              <Spacer />
+              <Container variant="panel" padding={1}>
+                <ChatInput textareaRef={textRef}>
+                  <Text>
+                    <span fg={theme.colors.accent}>Hey </span>
+                    Cowboy
+                  </Text>
+                </ChatInput>
               </Container>
             </FlexCol>
           </FlexRow>

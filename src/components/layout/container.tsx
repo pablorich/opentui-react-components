@@ -47,53 +47,24 @@ export function Container({
   return content;
 }
 
-export function FlexRow({ variant, padding, children, style }: ContainerProps) {
-  const { theme } = useTheme();
-
-  const backgroundColor =
-    variant === "default"
-      ? "background"
-      : variant === "panel"
-        ? "backgroundPanel"
-        : undefined;
-
-  const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
-
+export function FlexRow(props: ContainerProps) {
+  const { children, ...rest } = props;
   return (
     <FlexDirectionContext.Provider value="row">
-      <box
-        style={{ backgroundColor: bg, padding, flexDirection: "row", ...style }}
-      >
+      <Container {...rest} style={{ ...rest.style, flexDirection: "row" }}>
         {children}
-      </box>
+      </Container>
     </FlexDirectionContext.Provider>
   );
 }
 
-export function FlexCol({ variant, padding, children, style }: ContainerProps) {
-  const { theme } = useTheme();
-
-  const backgroundColor =
-    variant === "default"
-      ? "background"
-      : variant === "panel"
-        ? "backgroundPanel"
-        : undefined;
-
-  const bg = backgroundColor ? theme.colors[backgroundColor] : "transparent";
-
+export function FlexCol(props: ContainerProps) {
+  const { children, ...rest } = props;
   return (
     <FlexDirectionContext.Provider value="column">
-      <box
-        style={{
-          backgroundColor: bg,
-          padding,
-          flexDirection: "column",
-          ...style,
-        }}
-      >
+      <Container {...rest} style={{ ...rest.style, flexDirection: "column" }}>
         {children}
-      </box>
+      </Container>
     </FlexDirectionContext.Provider>
   );
 }

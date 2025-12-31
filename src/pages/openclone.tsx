@@ -1,26 +1,14 @@
 import type { TextareaRenderable } from "@opentui/core";
 import { useKeyboard } from "@opentui/react";
 import { useRef, useState } from "react";
-import { EmptyBorder } from "../component/border";
-
-const theme = {
-  background: "#282A36",
-  backgroundElement: "#44475A",
-  text: "#ffffff",
-  textSecondary: "#888888",
-  accentPrimary: "#FF69B4",
-  accentSecondary: "#f0ff69ff",
-};
-
-const customBorderChars = {
-  ...EmptyBorder,
-  vertical: "┃",
-};
+import { ChatInput } from "../components";
+import { useTheme } from "../theme/provider";
 
 export function OpenClone() {
   const [messages, setMessages] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const textareaRef = useRef<TextareaRenderable>(null);
+  const { theme } = useTheme();
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
@@ -38,7 +26,7 @@ export function OpenClone() {
   return (
     <box
       style={{
-        backgroundColor: theme.background,
+        backgroundColor: theme.colors.background,
         height: "100%",
         width: "100%",
         flexDirection: "column",
@@ -60,65 +48,7 @@ export function OpenClone() {
           </box>
         ))}
       </box>
-      <box
-        flexDirection="row"
-        width="100%"
-        // minHeight={4}
-        style={{
-          border: ["left"],
-          borderColor: theme.accentPrimary,
-        }}
-        customBorderChars={customBorderChars}
-      >
-        <box
-          style={{
-            backgroundColor: theme.backgroundElement,
-            width: "100%",
-          }}
-        >
-          <box
-            style={{
-              padding: 1,
-              paddingLeft: 2,
-            }}
-          >
-            <textarea
-              ref={textareaRef}
-              focused
-              minHeight={1}
-              maxHeight={6}
-              focusedBackgroundColor={theme.backgroundElement}
-              cursorColor={theme.text}
-            />
-          </box>
-          <box>
-            <text style={{ marginLeft: 2, marginBottom: 0 }}>
-              <span fg={theme.accentPrimary}>Build </span>
-              Agent 007
-            </text>
-          </box>
-        </box>
-      </box>
-      {/* Trick to have half height padding*/}
-      <box
-        height={1}
-        border={["left"]}
-        borderColor={theme.accentPrimary}
-        customBorderChars={{
-          ...EmptyBorder,
-          vertical: "╹",
-        }}
-      >
-        <box
-          height={1}
-          border={["bottom"]}
-          borderColor={theme.backgroundElement}
-          customBorderChars={{
-            ...EmptyBorder,
-            horizontal: "▀",
-          }}
-        />
-      </box>
+      <ChatInput textareaRef={textareaRef} />
       <box
         style={{
           alignItems: "flex-end",
@@ -126,10 +56,10 @@ export function OpenClone() {
         }}
       >
         <text>
-          <span style={{ fg: theme.text }}>tab </span>
-          <span style={{ fg: theme.textSecondary }}>switch agent </span>
-          <span style={{ fg: theme.text }}>ctrl+p </span>
-          <span style={{ fg: theme.textSecondary }}>commands</span>
+          <span style={{ fg: theme.colors.text }}>tab </span>
+          <span style={{ fg: theme.colors.textMuted }}>switch agent </span>
+          <span style={{ fg: theme.colors.text }}>ctrl+p </span>
+          <span style={{ fg: theme.colors.textMuted }}>commands</span>
         </text>
       </box>
       <box
